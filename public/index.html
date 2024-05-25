@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eng Word Quiz</title>
+  <link rel="stylesheet" href="./main.css">
+  <script src="./main.js" defer></script>
+</head>
+<body>
+  <div class="addWord">
+    <form class="addWordForm">
+      <input type="text" class="engWord" placeholder="영단어 입력" required>
+      <input type="text" class="korWord" placeholder="한글 뜻 입력" required>
+      <button type="submit">단어 추가</button>
+    </form>
+    <div class="choice">
+      <button onclick="quizWord()">단어 퀴즈</button>
+      <button onclick="findWord()">단어 찾기</button>
+    </div>
+  </div>
+
+  <div class="quizWord d-none">
+    <div class="engWordQuiz">ㅇㄴㅁㄹㅇㄴ</div>
+    <input type="text" class="korWord" required>
+    <button type="submit" class="quizBtn">제출</button>
+    <div class="choice">
+      <button onclick="addWord()">단어 추가</button>
+      <button onclick="findWord()">단어 찾기</button>
+    </div>
+  </div>
+
+
+  <div class="findWord d-none">
+    <input type="text" class="findEngWord" placeholder="찾고 싶은 영단어">
+    <button type="submit" class="findBtn">찾기</button>
+    <div class="choice">
+      <button onclick="addWord()">단어 추가</button>
+      <button onclick="quizWord()">단어 퀴즈</button>
+    </div>
+  </div>
+</body>
+</html>
