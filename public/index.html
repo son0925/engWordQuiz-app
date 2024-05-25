@@ -20,8 +20,8 @@
       <div id="addWord" class="section">
         <h2>단어 추가</h2>
         <form class="addWordForm">
-          <input type="text" class="engWord" placeholder="영단어 입력" required>
-          <input type="text" class="korWord" placeholder="한글 뜻 입력" required>
+          <input type="text" class="addWord" placeholder="단어 입력" required>
+          <input type="text" class="addMean" placeholder="뜻 입력" required>
           <button type="submit">단어 추가</button>
         </form>
       </div>
@@ -33,9 +33,11 @@
 
       <div id="quizWord" class="section d-none">
         <h2>단어 퀴즈</h2>
-        <div class="engWordQuiz">영단어</div>
-        <input type="text" class="korWord" placeholder="한글 뜻 입력" required>
-        <button type="submit" class="quizBtn">제출</button>
+        <div class="quiz-container">
+          <div class="engWordQuiz">영단어</div>
+          <input type="text" class="korWord" placeholder="뜻 입력" required>
+          <button type="submit" class="quizBtn">제출</button>
+        </div>
       </div>
 
       <div id="findWord" class="section d-none">
