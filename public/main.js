@@ -50,10 +50,8 @@ const addWord = async (word) => {
     if (!response.ok) {
       throw new Error(data.msg || '서버 오류');
     }
-    console.log(data.msg);
     alert(data.msg);
   } catch (error) {
-    console.log(error);
     alert(error.message);
   }
 };

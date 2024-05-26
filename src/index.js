@@ -6,7 +6,7 @@ const wordModel = require('./models/words.model');
 require('dotenv').config();
 
 
-app.use(express.static(path.join(__dirname, '../public')))
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.json());
 
 
@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGODB_URL)
   .catch((err) => {console.log(err)});
 
 
-app.post('/addWord', async (req, res, next) => {
+app.post('/addWord', async(req,res,next) => {
   const { word, mean } = req.body;
 
   if (!word || !mean) {
