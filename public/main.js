@@ -2,6 +2,7 @@
 const addWordFormEl = document.querySelector('.addWordForm');
 const addWordEl = document.querySelector('.addWord');
 const addMeanEl = document.querySelector('.addMean');
+const searchWordFormEl = document.querySelector('.searchWordForm');
 
 
 
@@ -56,3 +57,33 @@ const addWord = async (word) => {
   }
 };
 
+// 단어 검색
+searchWordFormEl.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const findEngWord = document.querySelector('.findEngWord').value;
+  const word = {
+    word: findEngWord
+  }
+  findWord(word);
+})
+
+const findWord = async(word) => {
+  if (!word) {
+    alert('단어를 입력하지 않았습니다');
+  }
+  const option = {
+    method: 'Post',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(word)
+  }
+  try {
+    const response = await fetch('/findWord', option);
+    const data = await response.json();
+    if (!response.ok) {
+      return alert(data.msg || '서버 오류');
+    }
+    alert(data.msg);
+  } catch (error) {
+    alert(error);
+  }
+}

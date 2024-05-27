@@ -37,7 +37,24 @@ app.post('/addWord', async(req,res,next) => {
     next(error);
   }
 });
-  
+
+app.post('/findWord', async(req,res,next) => {
+  const {word} = req.body;
+
+  if (!word) {
+    return next({msg: '단어를 입력하지 않았습니다'});
+  }
+  try {
+    const result = await wordModel.findOne({word: word});
+    console.log(result)
+    if (result === null) {
+      return res.send({msg: '단어가 저장되어 있지 않습니다'})
+    }
+    res.send({msg: result.word + " " + result.mean})
+  } catch (error) {
+    res.send({msg: '서버 에러'})
+  }
+})
 
 
 const port = 4000;
