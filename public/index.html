@@ -1,63 +1,53 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eng Word Quiz</title>
-  <link rel="stylesheet" href="./main.css">
-  <script src="./main.js" defer></script>
+  <title>Word App</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <div class="menu">
-      <button onclick="showSection('addWord')">단어 추가</button>
-      <button onclick="showSection('editWord')">단어 수정</button>
-      <button onclick="showSection('quizWord')">단어 퀴즈</button>
-      <button onclick="showSection('findWord')">단어 검색</button>
+  <div id="login-container" class="container">
+    <h2>로그인</h2>
+    <form class="login-form">
+      <input type="text" id="login-username" placeholder="사용자 이름" required>
+      <input type="password" id="login-password" placeholder="비밀번호" required>
+      <button type="submit">로그인</button>
+    </form>
+    <button id="show-register" class="secondary-btn">회원가입</button>
+  </div>
+
+  <div id="register-container" class="container d-none">
+    <h2>회원가입</h2>
+    <form class="register-form">
+      <input type="text" id="register-username" placeholder="사용자 이름" required>
+      <input type="password" id="register-password" placeholder="비밀번호" required>
+      <input type="password" id="confirm-password" placeholder="비밀번호 확인" required>
+      <button type="submit">회원가입</button>
+    </form>
+    <button id="show-login" class="secondary-btn">로그인</button>
+  </div>
+
+  <div id="word-page" class="d-none clearfix">
+    <div class="sidebar">
+      <ul>
+        <li><a href="#">단어 저장</a></li>
+        <li><a href="#">단어 찾기</a></li>
+        <li><a href="#">단어 수정</a></li>
+        <li><a href="#">단어 퀴즈</a></li>
+      </ul>
     </div>
-
     <div class="content">
-      <div id="addWord" class="section">
-        <h2>단어 추가</h2>
-        <form class="addWordForm">
-          <input type="text" class="addWord" placeholder="단어 입력" required>
-          <input type="text" class="addMean" placeholder="뜻 입력" required>
-          <button type="submit">단어 추가</button>
-        </form>
-      </div>
-
-      <div id="editWord" class="section d-none">
-        <h2>단어 수정</h2>
-        <!-- 단어 수정 폼 추가 -->
-      </div>
-
-      <div id="quizWord" class="section d-none">
-        <h2>단어 퀴즈</h2>
-        <div class="quiz-container">
-          <div class="engWordQuiz">영단어</div>
-          <input type="text" class="korWord" placeholder="뜻 입력" required>
-          <button type="submit" class="quizBtn">제출</button>
-        </div>
-      </div>
-
-      <div id="findWord" class="section d-none">
-        <h2>단어 검색</h2>
-        <form class="searchWordForm">
-          <input type="text" class="findEngWord" placeholder="찾고 싶은 영단어">
-          <button type="submit" class="findBtn">찾기</button>
-        </form>
-      </div>
+      <h2>환영합니다!</h2>
+      <p>단어 저장 페이지입니다.</p>
+      <form class="word-form">
+        <input type="text" id="word-english" placeholder="영어 단어" required>
+        <input type="text" id="word-meaning" placeholder="뜻" required>
+        <button type="submit">저장</button>
+      </form>
     </div>
   </div>
 
-
-  <script id="wordList" type="text/html">
-    
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
-
+  <script src="script.js"></script>
 </body>
-
-
 </html>
