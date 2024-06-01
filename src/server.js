@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const userModel = require('./models/users.model');
 const { signupUser } = require('./utils/users');
+const passport = require('passport');
 require('dotenv').config();
 
 
@@ -16,7 +17,11 @@ mongoose.connect(process.env.MONGO_URL)
   .catch((err) => console.error(err))
 
 
-app.post('/signup', signupUser)
+app.post('/signup', signupUser);
+app.post('/login', (req,res) => {
+  console.log(req.body);
+  res.status(200).json({msg: '로그인을 성공하셨습니다'})
+})
 
 
 

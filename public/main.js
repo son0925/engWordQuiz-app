@@ -6,22 +6,53 @@ const registerFormEl = document.querySelector('.register-form');
 const registerUserName = document.querySelector('#register-username');
 const registerPassWord = document.querySelector('#register-password')
 const confirmPassWord = document.querySelector('#confirm-password');
+const secondaryEls = document.querySelectorAll('.secondary-btn');
+const loginContainer = document.querySelector('#login-container');
+const registerContainer = document.querySelector('#register-container');
+let loginSecondaryCheck = true;
+const wordPage = document.querySelector('#word-page');
 
 
+
+
+// 회원가입, 로그인 하러가기
+secondaryEls.forEach(secondaryEl => {
+  secondaryEl.addEventListener('click', () => {
+    if (loginSecondaryCheck) {
+      loginContainer.classList.add('d-none');
+      registerContainer.classList.remove('d-none');
+    }
+    else {
+      loginContainer.classList.remove('d-none');
+      registerContainer.classList.add('d-none');
+    }
+    loginSecondaryCheck = !loginSecondaryCheck
+  })
+})
 
 
 
 
 // 로그인 이벤트
-loginFormEl.addEventListener('submit', (e) => {
+loginFormEl.addEventListener('submit', async(e) => {
   e.preventDefault();
-  
+
   const regexUserName = /^[a-zA-Z0-9]{4,10}$/;
   const regexPW = /^(?=.*[A-Z])(?=.*[a-z](?=.*\d)(?=.*[!@#$%^&?])[A-Za-z\d!@#$%^&?]{7,})/;
-  const userName = loginUserName.value;
+  const username = loginUserName.value;
   const password = loginUserPassWord.value;
-  if (regexPW.test(password) && regexUserName.test(userName)) {
-    alert('로그인 성공입니다')
+  if (regexPW.test(password) && regexUserName.test(username)) {
+    const res = await fetch('/login', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({username, password})
+    })
+    const data = await res.json();
+    alert(data.msg);
+    if (res.ok) {
+      wordPage.classList.remove('d-none');
+      loginContainer.classList.add('d-none');
+    }
   }
   else {
     alert('로그인 조건에 맞지 않습니다')

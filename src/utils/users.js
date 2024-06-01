@@ -11,6 +11,7 @@ async function signupUser(req,res) {
     return res.json({msg: '이미 존재하는 유저 이름입니다'})
   }
 
+  // db에 유저 정보 저장
   try {
     await user.save()
     return res.json({msg: '회원가입이 완료되었습니다!!'})
