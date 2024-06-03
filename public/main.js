@@ -89,10 +89,10 @@ registerFormEl.addEventListener('submit', async(e) => {
 })
 
 // 회원가입 비밀번호 focus 이벤트
-// registerPassWord.addEventListener('focus', displayPasswordMemo);
+registerPassWord.addEventListener('focus', displayPasswordMemo);
 
-// function displayPasswordMemo() {
-//   alert('비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자, 특수 문자를 포함해야 합니다.');
+function displayPasswordMemo() {
+  alert('비밀번호는 최소 8자 이상이어야 하며, 대문자, 소문자, 숫자, 특수 문자를 포함해야 합니다.');
 
-//   document.getElementById('register-password').removeEventListener('focus', displayPasswordMemo);
-// }
+  document.getElementById('register-password').removeEventListener('focus', displayPasswordMemo);
+}

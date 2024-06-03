@@ -3,14 +3,27 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const userModel = require('./models/users.model');
-const { signupUser } = require('./utils/users');
+const { signupUser, signInUser } = require('./utils/users');
 const passport = require('passport');
+const session = require('express-session');
 require('dotenv').config();
 
 
-
+app.use(session({
+  resave: false,
+  secret: process.env.COOKIE_SECRET,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: false
+  }
+}))
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../public')));
+// passport 미들웨어
+app.use(passport.initialize()); // passport 기본 설정으로 초기화하고 메서드 추가
+app.use(passport.session());    // 세션을 사용하여 인증 정보 저장
+
 
 mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log('DB Connected'))
@@ -18,10 +31,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 
 app.post('/signup', signupUser);
-app.post('/login', (req,res) => {
-  console.log(req.body);
-  res.status(200).json({msg: '로그인을 성공하셨습니다'})
-})
+app.post('/login', signInUser)
 
 
 

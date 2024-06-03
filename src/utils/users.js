@@ -1,6 +1,9 @@
 const userModel = require("../models/users.model");
-const passport = require('passport');
 const bcrypt = require('bcrypt');
+const passport = require('passport');
+require('../utils/passport');
+
+
 
 // 회원가입
 async function signupUser(req,res) {
@@ -39,11 +42,30 @@ async function signupUser(req,res) {
   }
 }
 
+async function signInUser(req,res,next) {
+  passport.authenticate('local', (err, user, msg) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return next(msg);
+    }
+    return req.login(user, (error) => {
+      if (error) {
+        console.log(error);
+        return next(error);
+      }
+      return res.status(200).json(msg)
+    })
+  })(req,res,next)
+}
+
 
 
 
 
 
 module.exports = {
-  signupUser
+  signupUser,
+  signInUser
 }
