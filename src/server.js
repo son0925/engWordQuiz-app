@@ -1,46 +1,40 @@
+// 서버 모듈
 const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
-const userModel = require('./models/users.model');
-const { signupUser, signInUser } = require('./utils/users');
-const passport = require('passport');
-const session = require('express-session');
+const signRouter = require('../routes/sign.router');
 require('dotenv').config();
 
 
-app.use(session({
-  resave: false,
-  secret: process.env.COOKIE_SECRET,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    secure: false
-  }
-}))
+
+
+
+// 서버 미들웨어
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../public')));
-// passport 미들웨어
-app.use(passport.initialize()); // passport 기본 설정으로 초기화하고 메서드 추가
-app.use(passport.session());    // 세션을 사용하여 인증 정보 저장
+app.use(express.urlencoded({
+  extended: true
+}));
+app.use(express.static(path.join(__dirname, '../public')))
 
 
+
+// Mongo DB Connect
 mongoose.connect(process.env.MONGO_URL)
-  .then(() => console.log('DB Connected'))
-  .catch((err) => console.error(err))
+  .then(() => {console.log('Mongo DB Connected')})
+  .catch((err) => {console.log(err)})
 
 
-app.post('/signup', signupUser);
-app.post('/login', signInUser)
-
-
+// 서버 라우터
+app.use('/sign', signRouter)
 
 
 
 
 
 
+// 서버 리스너
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server Listenner on ${port}`)
+  console.log(`Server Listenner on ${port}`);
 })
