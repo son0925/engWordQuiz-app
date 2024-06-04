@@ -10,20 +10,29 @@ passport.use(new LocalStrategy({
   passwordField: 'password'
 }, async(username, password, done) => {
   try {
+    // 유저 찾기
     const exUser = await User.findOne({username});
     if (!exUser) {
-      return done(null, false, {msg: '해당 유저의 정보가 없습니다'})
+      return done(null, false, {msg: '사용자를 찾을 수 없습니다'})
     }
+    // 비밀번호 체크하기
     const result = await bcrypt.compare(password, exUser.password);
     if (!result) {
-      return done(null, false, {msg: '비밀번호가 틀립니다'})
+      return done(null, false, {msg: '비밀번호가 맞지 않습니다'})
     }
-    return done(null, exUser)
+    return done(null, exUser);
   } catch (error) {
     return done(error)
   }
 }))
 
+passport.serializeUser((user,done) => {
+  done(null, user.id);
+})
+
+passport.deserializeUser((id, done) => {
+  done(id);
+})
 
 
 

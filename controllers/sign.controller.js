@@ -15,21 +15,27 @@ function getSignUpPage(req,res) {
   res.sendFile(path.join(__dirname, '../public/html/signup.html'))
 }
 
-// // 로그인
-// function signInUser(req,res,next) {
-//   passport.authenticate('local', (err, user, msg) => {
-//     if (err) {
-//       return next(err);
-//     }
+// 로그인
+function signInUser(req,res,next) {
+  passport.authenticate('local', (err, user, msg) => {
+    if (err) {
+      return next(err);
+    }
 
-//     if (!user) {
-//       return next(msg);
-//     }
+    if (!user) {
+      return next(msg);
+    }
 
-    
+    // 에러가 없고 유저의 정보가 있다면 로그인
+    req.login(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect('/')
+    })
 
-//   })(req,res,next)
-// }
+  })(req,res,next)
+}
 
 // 회원가입
 async function signUpUser(req,res) {
