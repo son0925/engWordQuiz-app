@@ -59,6 +59,31 @@ async function signUpUser(req,res) {
   return res.json({msg: '회원가입 성공!!'})
 }
 
+function logout(req,res,next) {
+  req.logOut(err => {
+    if (err) {
+      return next(err);
+    }
+    else {
+      res.redirect('/')
+    }
+  })
+}
+
+
+function isLoggedIn(req,res,next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/sign/in');
+}
+
+function isNotLogged(req,res,next) {
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/');
+}
 
 
 
@@ -71,5 +96,8 @@ module.exports = {
   getSignInPage,
   getSignUpPage,
   signInUser,
-  signUpUser
+  signUpUser,
+  logout,
+  isLoggedIn,
+  isNotLogged
 }

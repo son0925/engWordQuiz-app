@@ -7,6 +7,7 @@ const signRouter = require('../routes/sign.router');
 const passport = require('passport');
 const session = require('express-session');
 const wordsRouter = require('../routes/words.router');
+const { isLoggedIn, isNotLogged } = require('../controllers/sign.controller');
 require('dotenv').config();
 
 
@@ -29,6 +30,9 @@ app.use(express.static(path.join(__dirname, '../public')))
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../views'));
+
 
 
 // Mongo DB Connect
@@ -39,8 +43,12 @@ mongoose.connect(process.env.MONGO_URL)
 
 // 서버 라우터
 app.use('/sign', signRouter);
-app.use('/word', wordsRouter);
-
+app.use('/word', isLoggedIn, wordsRouter);
+app.use('/', (req,res) => {
+  res.render('index', {
+    user: req.user
+  })
+});
 
 
 
