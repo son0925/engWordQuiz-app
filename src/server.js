@@ -5,7 +5,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const signRouter = require('../routes/sign.router');
 const passport = require('passport');
-const session = require('express-session')
+const session = require('express-session');
+const wordsRouter = require('../routes/words.router');
 require('dotenv').config();
 
 
@@ -13,10 +14,10 @@ require('dotenv').config();
 
 app.use(
   session({
-      secret: "secret key",
-      resave: false,
-      saveUninitialized: true,
-      cookie: { maxAge: 86400000 },
+    secret: "secret key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 86400000 },
   })
 );
 // 서버 미들웨어
@@ -38,6 +39,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 // 서버 라우터
 app.use('/sign', signRouter);
+app.use('/word', wordsRouter);
 
 
 
