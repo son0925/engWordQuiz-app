@@ -8,6 +8,7 @@ const passport = require('passport');
 const session = require('express-session');
 const wordsRouter = require('../routes/words.router');
 const { isLoggedIn, isNotLogged } = require('../controllers/sign.controller');
+const mainRouter = require('../routes/main.router');
 require('dotenv').config();
 
 
@@ -44,11 +45,7 @@ mongoose.connect(process.env.MONGO_URL)
 // 서버 라우터
 app.use('/sign', signRouter);
 app.use('/word', isLoggedIn, wordsRouter);
-app.use('/', (req,res) => {
-  res.render('index', {
-    user: req.user
-  })
-});
+app.use('/', mainRouter);
 
 
 
