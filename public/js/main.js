@@ -64,3 +64,9 @@ function showContent(section) {
       break;
   }
 }
+
+let msg = decodeURIComponent(document.cookie).split('=')[1]
+if (msg) {
+  alert(msg)
+}
+document.cookie = 'msg=;'

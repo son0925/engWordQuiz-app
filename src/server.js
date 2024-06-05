@@ -9,6 +9,7 @@ const session = require('express-session');
 const wordsRouter = require('../routes/words.router');
 const { isLoggedIn, isNotLogged } = require('../controllers/sign.controller');
 const mainRouter = require('../routes/main.router');
+// const cookieParser = require('cookie-parser');
 require('dotenv').config();
 
 
